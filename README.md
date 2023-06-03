@@ -1,4 +1,4 @@
-# GTNH's Forgelin
+# IMPACT Forgelin
 Fork of [shadowfacts Forgelin](https://github.com/shadowfacts/Forgelin).
 
 ## Additions
@@ -11,16 +11,25 @@ Fork of [shadowfacts Forgelin](https://github.com/shadowfacts/Forgelin).
 repositories {
     mavenCentral()
     maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
+        name = "impact"
+        url = "https://maven.accident.space/repository/maven-public/"
     }
 }
 
 dependencies {
-    compile "com.github.GTNewHorizons:Forgelin:LATEST_VERSION"
+    implementation("space.impact:Forgelin:$version")
 }
 ```
 
-All versions can be seen [here](https://jitpack.io/#GTNewHorizons/Forgelin).
+```kotlin
+repositories {
+    mavenCentral()
+    maven("https://maven.accident.space/repository/maven-public/")
+}
+
+dependencies {
+    implementation("space.impact:Forgelin:$version")
+}
+```
 
 **Note:** You must have the `mavenCentral()` call in your `repositories` block. MavenCentral is used to host the Kotlin coroutines libraries.

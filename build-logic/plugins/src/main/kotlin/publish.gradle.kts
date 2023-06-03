@@ -1,5 +1,6 @@
 @file:Suppress("DSL_SCOPE_VIOLATION")
 
+import com.palantir.gradle.gitversion.VersionDetails
 import groovy.lang.Closure
 import groovy.util.Node
 import groovy.util.NodeList
@@ -15,12 +16,13 @@ plugins {
 val modId: String by extra
 val modName: String by extra
 val modGroup: String by extra
+val versionDetails: Closure<VersionDetails> by extra
+val gitDetails = versionDetails()
 group = modGroup
 
 var versionOverride: String? = System.getenv("VERSION") ?: null
-var identifiedVersion = runCatching {
-    val gitVersion: Closure<String> by extra
-    versionOverride ?: gitVersion()
+var identifiedVersion: String = runCatching {
+    versionOverride ?: if (System.getenv("CI") != null) gitDetails.lastTag else gitDetails.version
 }.getOrElse {
     "unknown".also {
         versionOverride = it
@@ -35,7 +37,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-archivesName.set(modId)
+archivesName.set("impact-$modId")
 
 tasks.withType<GenerateModuleMetadata> {
     enabled = false
@@ -54,7 +56,7 @@ configure<PublishingExtension> {
                     (it as Node).parent().remove(it)
                 }
             }
-            groupId = modGroup
+            groupId = "space.impact"
             artifactId = modId
             version = identifiedVersion
         }
@@ -69,4 +71,3 @@ configure<PublishingExtension> {
         }
     }
 }
-
