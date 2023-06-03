@@ -31,7 +31,7 @@ class KotlinAdapter : ILanguageAdapter {
 
 	override fun getNewInstance(container: FMLModContainer, objectClass: Class<*>, classLoader: ClassLoader, factoryMarkedAnnotation: Method?): Any {
 		log.debug("FML has asked for ${objectClass.simpleName} to be constructed")
-		return objectClass.kotlin.objectInstance ?: objectClass.newInstance()
+		return objectClass.kotlin.objectInstance ?: objectClass.getDeclaredConstructor().newInstance()
 	}
 
 	override fun setInternalProxies(mod: ModContainer?, side: Side?, loader: ClassLoader?) {

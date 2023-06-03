@@ -1,0 +1,27 @@
+[versions]
+kotlin = "1.8.21"
+coroutines = "1.7.1"
+minecraftVersion = "1.7.10"
+forge = "10.13.4.1614"
+minecraft-forge = "1.7.10-10.13.4.1614-1.7.10"
+
+[libraries]
+gradle-forge = { module = "com.anatawa12.forge:ForgeGradle", version = "1.2-1.1.+" }
+gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle-gitversion = { module = "com.palantir.gradle.gitversion:gradle-git-version", version = "3.0.0" }
+gradle-buildconfig = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version = "3.1.0" }
+
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-annotations = { module = "org.jetbrains:annotations", version= "24.0.1" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlin-coroutines-core-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "coroutines" }
+
+[plugins]
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+minecraft-forge = { id = "forge", version.ref = "forge" }
+buildconfig = { id = "com.github.gmazzo.buildconfig", version = "3.1.0" }
+gitversion = { id = "com.palantir.git-version", version = "3.0.0" }
+shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
+
