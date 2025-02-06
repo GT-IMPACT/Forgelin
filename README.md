@@ -1,4 +1,7 @@
 # IMPACT Forgelin
+
+[![Latest Release](https://img.shields.io/github/v/tag/GT-IMPACT/Forgelin?label=Latest&sort=semver)](https://github.com/GT-IMPACT/Forgelin/releases/latest)
+
 Fork of [shadowfacts Forgelin](https://github.com/shadowfacts/Forgelin).
 
 ## Additions
