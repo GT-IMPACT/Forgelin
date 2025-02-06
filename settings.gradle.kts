@@ -3,7 +3,7 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
-    includeBuild("build-logic")
+    includeBuild("remote-build-logic")
     repositories {
         maven("https://maven.accident.space/repository/maven-public/") {
             mavenContent {
@@ -40,6 +40,12 @@ dependencyResolutionManagement {
         maven("https://maven.minecraftforge.net")
         maven("https://plugins.gradle.org/m2/")
         mavenCentral()
+    }
+
+    versionCatalogs {
+        create("libs") {
+            from(files("remote-build-logic/libs.versions.toml"))
+        }
     }
 }
 
