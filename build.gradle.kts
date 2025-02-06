@@ -1,49 +1,33 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import settings.getVersionMod
 
 plugins {
-    alias(libs.plugins.buildconfig)
-    alias(libs.plugins.shadow)
-    id("minecraft")
-    id("publish")
+    alias(libs.plugins.setup.minecraft)
+    alias(libs.plugins.setup.publish)
+    id(libs.plugins.buildconfig.get().pluginId)
 }
 
 val modId: String by extra
 val modName: String by extra
 val modGroup: String by extra
 val modAdapter: String by extra
+val modVersion: String by extra
 
 buildConfig {
-    packageName("$modGroup.$modId")
+    println(group)
+    packageName(modGroup)
     buildConfigField("String", "MODID", "\"${modId}\"")
     buildConfigField("String", "MODNAME", "\"${modName}\"")
-    buildConfigField("String", "VERSION", "\"${project.version}\"")
+    buildConfigField("String", "VERSION", "\"${getVersionMod()}\"")
     buildConfigField("String", "GROUPNAME", "\"${modGroup}\"")
     buildConfigField("String", "MODADAPTER", "\"${modAdapter}\"")
     useKotlinOutput { topLevelConstants = true }
 }
 
 dependencies {
-    shadow(libs.kotlin.stdlib)
-    shadow(libs.kotlin.reflect)
-    shadow(libs.kotlin.annotations)
-    shadow(libs.kotlin.coroutines.core)
-    shadow(libs.kotlin.coroutines.jvm)
-}
-
-tasks {
-    shadowJar {
-        configurations += project.configurations.shadow.get()
-        mustRunAfter("reobf")
-        dependencies {
-            include(dependency(libs.kotlin.stdlib.get().module.toString()))
-            include(dependency(libs.kotlin.reflect.get().module.toString()))
-            include(dependency(libs.kotlin.annotations.get().module.toString()))
-            include(dependency(libs.kotlin.coroutines.core.get().module.toString()))
-            include(dependency(libs.kotlin.coroutines.jvm.get().module.toString()))
-        }
-        archiveClassifier.set("")
-    }
-    build {
-        dependsOn(shadowJar)
-    }
+    shadowImplementation(libs.kotlin.stdlib.core)
+    shadowImplementation(libs.kotlin.stdlib.java8)
+    shadowImplementation(libs.kotlin.reflect)
+    shadowImplementation(libs.kotlin.annotations)
+    shadowImplementation(libs.kotlin.coroutines.core)
+    shadowImplementation(libs.kotlin.coroutines.jvm)
 }
