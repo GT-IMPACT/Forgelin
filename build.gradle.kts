@@ -12,12 +12,14 @@ val modGroup: String by extra
 val modAdapter: String by extra
 val modVersion: String by extra
 
+extra.set("modVersion", getVersionMod())
+
 buildConfig {
     println(group)
     packageName(modGroup)
     buildConfigField("String", "MODID", "\"${modId}\"")
     buildConfigField("String", "MODNAME", "\"${modName}\"")
-    buildConfigField("String", "VERSION", "\"${getVersionMod()}\"")
+    buildConfigField("String", "VERSION", "\"${modVersion}\"")
     buildConfigField("String", "GROUPNAME", "\"${modGroup}\"")
     buildConfigField("String", "MODADAPTER", "\"${modAdapter}\"")
     useKotlinOutput { topLevelConstants = true }
