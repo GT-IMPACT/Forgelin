@@ -6,7 +6,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.gameevent.TickEvent
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent
 import kotlinx.coroutines.CoroutineDispatcher
-import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.coroutines.CoroutineContext
 
 object ClientTaskQueue {
@@ -17,17 +16,14 @@ object ClientTaskQueue {
         }
     }
 
-    private val taskQueue = ConcurrentLinkedQueue<Runnable>()
+    private val taskQueue = TickTaskQueue()
 
     private fun runOnClientThread(task: Runnable) {
-        taskQueue.add(task)
+        taskQueue.dispatch(task)
     }
 
     private fun processQueue() {
-        while (true) {
-            val task = taskQueue.poll() ?: break
-            task.run()
-        }
+        taskQueue.process()
     }
 
     @SubscribeEvent

@@ -28,7 +28,7 @@ package net.shadowfacts.forgelin
 import cpw.mods.fml.relauncher.Side
 
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.TYPE)
+@Target(AnnotationTarget.CLASS)
 annotation class EventBusSubscriber(vararg val value: Side = [Side.CLIENT, Side.SERVER],
                                              /**
                                                   * Optional value, only nessasary if tis annotation is not on the same class that has a @Mod annotation.

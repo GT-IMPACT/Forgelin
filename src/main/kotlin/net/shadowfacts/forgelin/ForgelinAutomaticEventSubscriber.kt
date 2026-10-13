@@ -11,7 +11,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.relauncher.Side
 import net.minecraftforge.common.MinecraftForge
 import org.apache.logging.log4j.LogManager
-import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 import java.util.*
 import kotlin.reflect.full.companionObjectInstance
@@ -93,9 +92,9 @@ object ForgelinAutomaticEventSubscriber {
 		}
 	}
 
-	private fun parseModId(containedMods: MutableSet<ASMData>, subscriber: ASMData): String? {
+	internal fun parseModId(containedMods: Set<ASMData>, subscriber: ASMData): String? {
 		val parsedModId: String? = subscriber.annotationInfo["modid"] as? String
-		if (parsedModId.isNullOrEmpty()) {
+		if (!parsedModId.isNullOrEmpty()) {
 			return parsedModId
 		}
 
@@ -124,7 +123,9 @@ object ForgelinAutomaticEventSubscriber {
 				mods.first().annotationInfo["modid"] as String?
 			}
 			else -> {
-				mods.firstOrNull{ e -> targ.className.startsWith(e.className)}?.annotationInfo?.get("modid") as String?
+				mods.firstOrNull { e ->
+					targ.className == e.className || targ.className.startsWith(e.className + "$")
+				}?.annotationInfo?.get("modid") as String?
 			}
 		}
 	}

@@ -28,6 +28,8 @@ object Forgelin {
         }
 
         FMLCommonHandler.instance().bus().register(ServerTaskQueue)
-        FMLCommonHandler.instance().bus().register(ClientTaskQueue)
+        if (FMLCommonHandler.instance().side.isClient) {
+            FMLCommonHandler.instance().bus().register(ClientTaskQueue)
+        }
     }
 }
